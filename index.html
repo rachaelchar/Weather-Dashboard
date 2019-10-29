@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Weather Dashboard</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark text-light h1">Weather Dashboard
+    </nav>
+
+    <div class="row">
+        <div class="col-md-4 col-xs-12">
+            <form class="form-inline my-2 p-1 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+                <div class="col-md-12">
+                    <ul class="list-group p-1 mt-2">
+                        <li class="list-group-item">Searched City</li>
+                    </ul>
+                </div>
+        </div>
+
+        <div class="col-md-8 col-xs-12 display-flex p-4">
+            <div class="jumbotron jumbotron-fluid mr-2 mt-2 rounded border-success">
+                <div class="container pr-1">
+                    <h2 id="city-name">Example City</h2>
+                    <p id="city-temp">temp</p>
+                    <p id="city-humidity">city-humidity</p>
+                    <p id="city-wind-speed">city-wind-speed</p>
+                    <p id="city-uv-index">city-uv-index</p>
+                </div>
+            </div>
+            <div class="row m-2">
+                <h2>5 Day Forecast</h2>
+            </div>
+            <div class="row">
+                <div class="card text-white bg-primary mx-auto" style="min-width: 11rem;">
+                    <div class="card-header">Day 1 Date</div>
+                    <div class="card-body">
+                        <h5 class="card-title">icon</h5>
+                        <p class="card-text-temp">temp</p>
+                        <p class="card-text-humidty">humidity</p>
+                    </div>
+                </div>
+                <div class="card text-white bg-primary mx-auto" style="min-width: 11rem;">
+                    <div class="card-header">Day 2 Date</div>
+                    <div class="card-body">
+                        <h5 class="card-title">icon</h5>
+                        <p class="card-text">temp</p>
+                        <p class="card-text">humidity</p>
+                    </div>
+                </div>
+                <div class="card text-white bg-primary mx-auto" style="min-width: 11rem;">
+                    <div class="card-header">Day 3 Date</div>
+                    <div class="card-body">
+                        <h5 class="card-title">icon</h5>
+                        <p class="card-text">temp</p>
+                        <p class="card-text">humidity</p>
+                    </div>
+                </div>
+                <div class="card text-white bg-primary mx-auto" style="min-width: 11rem;">
+                    <div class="card-header">Day 4 Date</div>
+                    <div class="card-body">
+                        <h5 class="card-title">icon</h5>
+                        <p class="card-text">temp</p>
+                        <p class="card-text">humidity</p>
+                    </div>
+                </div>
+                <div class="card text-white bg-primary mx-auto mx-auto" style="min-width: 11rem;">
+                    <div class="card-header">Day 5 Date</div>
+                    <div class="card-body">
+                        <h5 class="card-title">icon</h5>
+                        <p class="card-text">temp</p>
+                        <p class="card-text">humidity</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- jquery -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <!-- bootstrap JS links -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+        <!-- fontawesome for weather icons -->
+        <script src="https://kit.fontawesome.com/ee718c4d7b.js" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
