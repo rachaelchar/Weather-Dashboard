@@ -8,7 +8,7 @@ var forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&mo
 
 
 
-// function renderCurrentConditions();
+
 // function render5DayForecast();
 // function renderSearchHistory();
 // function renderUVIndex();
@@ -23,6 +23,9 @@ $.ajax({
     method: "GET"
 }).done(function (response) {
     console.log(response);
+    
+    function renderCurrentConditions(){
+
     var iconcode = response.weather[0].icon;
 
     var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
@@ -33,9 +36,25 @@ $.ajax({
     $("#city-humidity").text("Humidity: " + response.main.humidity);
     $("#city-wind-speed").text("Wind Speed: " + response.wind.speed);
 
+    }
+    
+    var latitude = response.coord.lat;
+    var longitude = response.coord.lon;
+    
+    var uvIndexUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${latitude}&;lon=${longitude}&APPID=${apiKey}`;
+    renderCurrentConditions();
 
+    $.ajax({
+        url: uvIndexUrl,
+        method: "GET"
+    }).done(function (response) {
+        console.log(response);
+        $("#city-uv-index").text("UV Index: " + response.value);
+    });
 
 });
+
+
 
 
 
