@@ -32,7 +32,7 @@ currentCity.text(city);
 // click event for search btn
 $("#search-btn").on("click", function (event) {
     event.preventDefault();
-    
+
     // get the value of the user's search
     city = $("#searched-city").val();
     alert(city);
@@ -41,7 +41,8 @@ $("#search-btn").on("click", function (event) {
     localStorage.setItem("searchedCities", searchedCities);
 
     var url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${apiKey}&units=imperial`;
-
+    
+    currentCity.text(city + " " + currentDate + " ");
 
     $.ajax({
         url: url,
@@ -57,6 +58,7 @@ $("#search-btn").on("click", function (event) {
             icon.attr('src', iconurl);
             currentCity.append(icon);
 
+            
             $("#city-temp").text("Temperature: " + response.main.temp);
             $("#city-humidity").text("Humidity: " + response.main.humidity);
             $("#city-wind-speed").text("Wind Speed: " + response.wind.speed);
