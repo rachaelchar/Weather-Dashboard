@@ -22,93 +22,114 @@ currentCity.text(city);
 
 $(document).ready(function () {
     renderSearchHistory();
-});
 
 
 
 
-// function render5DayForecast();
-// function renderUVIndex();
 
-// function to save user's searches to the page
-function renderSearchHistory(){
-    // create li element and add class
-    var liElement = $("<li class=list-group-item>");
+    // function render5DayForecast();
+    // function renderUVIndex();
 
-    searchedCitiesString = localStorage.getItem("searchedCities");
+    // function to save user's searches to the page
+    function renderSearchHistory() {
 
-    searchedCities = JSON.parse(searchedCitiesString);
-    console.log(searchedCities);
+        $(".list-group").empty();
+        searchedCitiesString = localStorage.getItem("searchedCities");
 
-    // use forEach to loop through searchedCities array
-    searchedCities.forEach(function (searchedCity){
-        liElement.text(searchedCity);
-        $(".list-group").append(liElement);
-    });
-};
+        searchedCities = JSON.parse(searchedCitiesString);
+        console.log(searchedCities);
 
+        // use forEach to loop through searchedCities array
+        searchedCities.forEach(function (searchedCity) {
+            // create li element and add class
+            var liElement = $("<li class=list-group-item>");
+            liElement.addClass("city-list");
+            liElement.text(searchedCity);
+            $(".list-group").append(liElement);
+        });
+    };
 
-// click event for search btn
-$("#search-btn").on("click", function (event) {
-    event.preventDefault();
+    function getWeather(userCity) {
 
-    // get the value of the user's search
-    city = $("#searched-city").val();
-    alert(city);
-    // add searched city to searchedCities array
-    searchedCities.push(city);
-    localStorage.setItem("searchedCities", JSON.stringify(searchedCities));
+        var url = `https://api.openweathermap.org/data/2.5/weather?q=${userCity}&APPID=${apiKey}&units=imperial`;
 
-    renderSearchHistory();
-
-    var url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${apiKey}&units=imperial`;
-    
-    currentCity.text(city + " " + currentDate + " ");
-
-    $.ajax({
-        url: url,
-        method: "GET"
-    }).done(function (response) {
-        console.log(response);
-
-        function renderCurrentConditions() {
-
-            var iconcode = response.weather[0].icon;
-
-            var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
-            icon.attr('src', iconurl);
-            currentCity.append(icon);
-
-            
-            $("#city-temp").text("Temperature: " + response.main.temp);
-            $("#city-humidity").text("Humidity: " + response.main.humidity);
-            $("#city-wind-speed").text("Wind Speed: " + response.wind.speed);
-
-        }
-
-        var latitude = response.coord.lat;
-        var longitude = response.coord.lon;
-
-        var uvIndexUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${latitude}&;lon=${longitude}&APPID=${apiKey}`;
-        renderCurrentConditions();
+        currentCity.text(userCity + " " + currentDate + " ");
 
         $.ajax({
-            url: uvIndexUrl,
+            url: url,
             method: "GET"
         }).done(function (response) {
             console.log(response);
-            $("#city-uv-index").text("UV Index: " + response.value);
+
+            function renderCurrentConditions() {
+
+                var iconcode = response.weather[0].icon;
+
+                var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+                icon.attr('src', iconurl);
+                currentCity.append(icon);
+
+
+                $("#city-temp").text("Temperature: " + response.main.temp);
+                $("#city-humidity").text("Humidity: " + response.main.humidity);
+                $("#city-wind-speed").text("Wind Speed: " + response.wind.speed);
+
+            }
+
+            var latitude = response.coord.lat;
+            var longitude = response.coord.lon;
+
+            var uvIndexUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${latitude}&;lon=${longitude}&APPID=${apiKey}`;
+            renderCurrentConditions();
+
+            $.ajax({
+                url: uvIndexUrl,
+                method: "GET"
+            }).done(function (response) {
+                console.log(response);
+                $("#city-uv-index").text("UV Index: " + response.value);
+            });
         });
 
         // openweather API info for 5 day forecast
-        // var forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&mode=json&APPID=${apiKey}&units=imperial`;
+        var forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${userCity}&mode=json&APPID=${apiKey}&units=imperial`;
 
+        $.ajax({
+            url: forecastUrl,
+            method: "GET"
+        }).done(function (response) {
+            console.log("forecast info", response);
 
+        });
+    }
+
+// attach to the document because the list items were created dynamically
+    $(document).on("click", ".city-list", function(event){
+        alert("clicked");
+        var buttonText = $(this).text();
+        console.log(buttonText);
+        getWeather(buttonText);
     });
 
-});
+    // click event for search btn
+    $("#search-btn").on("click", function (event) {
+        event.preventDefault();
 
+        // get the value of the user's search
+        city = $("#searched-city").val();
 
+        alert(city);
+        // add searched city to searchedCities array
+        searchedCities.push(city);
+        localStorage.setItem("searchedCities", JSON.stringify(searchedCities));
+
+        renderSearchHistory();
+
+        getWeather(city);
+
+        });
+
+    });
 
 
 
