@@ -7,10 +7,6 @@ var city = "";
 // set an array of searched cities to be appended as buttons later
 var searchedCities = [];
 
-
-
-
-
 // create an img element for the icons provided by openweather
 var icon = $("<img>");
 
@@ -24,10 +20,33 @@ console.log(currentDate);
 
 currentCity.text(city);
 
+$(document).ready(function () {
+    renderSearchHistory();
+});
+
+
+
 
 // function render5DayForecast();
-// function renderSearchHistory();
 // function renderUVIndex();
+
+// function to save user's searches to the page
+function renderSearchHistory(){
+    // create li element and add class
+    var liElement = $("<li class=list-group-item>");
+
+    searchedCitiesString = localStorage.getItem("searchedCities");
+
+    searchedCities = JSON.parse(searchedCitiesString);
+    console.log(searchedCities);
+
+    // use forEach to loop through searchedCities array
+    searchedCities.forEach(function (searchedCity){
+        liElement.text(searchedCity);
+        $(".list-group").append(liElement);
+    });
+};
+
 
 // click event for search btn
 $("#search-btn").on("click", function (event) {
@@ -38,7 +57,9 @@ $("#search-btn").on("click", function (event) {
     alert(city);
     // add searched city to searchedCities array
     searchedCities.push(city);
-    localStorage.setItem("searchedCities", searchedCities);
+    localStorage.setItem("searchedCities", JSON.stringify(searchedCities));
+
+    renderSearchHistory();
 
     var url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${apiKey}&units=imperial`;
     
@@ -86,7 +107,6 @@ $("#search-btn").on("click", function (event) {
     });
 
 });
-
 
 
 
