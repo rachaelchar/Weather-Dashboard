@@ -34,6 +34,7 @@ $(document).ready(function () {
         searchedCitiesString = localStorage.getItem("searchedCities");
 
         searchedCities = JSON.parse(searchedCitiesString);
+        // thank you to Brandon for help with the below code! 
         if (searchedCities === null){
             searchedCities = [];
         }
@@ -102,6 +103,16 @@ $(document).ready(function () {
         }).done(function (response) {
             console.log("forecast info", response);
 
+            var j = 1;
+            for (var i = 5; i < response.list.length; i = i+8){
+                $("#day-" + j).text(response.list[i].dt_txt);
+                var iconcode = response.list[i].weather[0].icon;
+                var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+                $("#icon-" + j).attr("src", iconurl);
+                $("#temp-" + j).text("Temp: " + response.list[i].main.temp);
+                $("#humidity-" + j).text("Humidity: " + response.list[i].main.humidity);
+                j++;
+            }
         });
     }
 
