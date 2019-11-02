@@ -24,9 +24,6 @@ $(document).ready(function () {
     renderSearchHistory();
 
 
-
-
-
     // function render5DayForecast();
     // function renderUVIndex();
 
@@ -37,6 +34,9 @@ $(document).ready(function () {
         searchedCitiesString = localStorage.getItem("searchedCities");
 
         searchedCities = JSON.parse(searchedCitiesString);
+        if (searchedCities === null){
+            searchedCities = [];
+        }
         console.log(searchedCities);
 
         // use forEach to loop through searchedCities array
@@ -89,6 +89,8 @@ $(document).ready(function () {
                 console.log(response);
                 $("#city-uv-index").text("UV Index: " + response.value);
             });
+
+            
         });
 
         // openweather API info for 5 day forecast
