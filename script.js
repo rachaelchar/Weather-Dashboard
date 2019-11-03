@@ -1,35 +1,28 @@
 
-// openweather API info for current conditions
 var apiKey = "97c7846983898e7f83478c1bb1403a57";
-
 var city = "";
-
-// set an array of searched cities to be appended as buttons later
 var searchedCities = [];
-
-// create an img element for the icons provided by openweather
 var icon = $("<img>");
-
-// select the space for the name of the current city
 var currentCity = $("#city-name");
 
 // define date with moment.js
 var currentDate = moment().format("MM/DD/YYYY");
-console.log(currentDate);
 
 currentCity.text(city);
+
 
 $(document).ready(function () {
     renderSearchHistory();
 
-    // function to save user's searches to the page
+    // =================== SAVE USER'S SEARCHES AS A LIST ON THE PAGE ===================
+
     function renderSearchHistory() {
 
         $(".list-group").empty();
         searchedCitiesString = localStorage.getItem("searchedCities");
 
         searchedCities = JSON.parse(searchedCitiesString);
-        // thank you to Brandon for help with the below code! 
+        // thank you to Brandon for help with the below code to fix a bug upon clearing my local storage 
         if (searchedCities === null) {
             searchedCities = [];
         }
@@ -44,6 +37,9 @@ $(document).ready(function () {
             $(".list-group").append(liElement);
         });
     };
+
+
+    // =================== GET CURRENT WEATHER DATA & UV INDEX FROM OPENWEATHER APIs ===================
 
     function getWeather(userCity) {
 
@@ -66,8 +62,8 @@ $(document).ready(function () {
                 currentCity.append(icon);
 
 
-                $("#city-temp").text("Temperature: " + response.main.temp);
-                $("#city-humidity").text("Humidity: " + response.main.humidity);
+                $("#city-temp").text("Temperature: " + response.main.temp + "°F");
+                $("#city-humidity").text("Humidity: " + response.main.humidity + "%");
                 $("#city-wind-speed").text("Wind Speed: " + response.wind.speed);
 
             }
@@ -85,12 +81,12 @@ $(document).ready(function () {
                 console.log(response);
                 $("#city-uv-index").text("UV Index: " + response.value);
             });
-
-
         });
 
-        // openweather API info for 5 day forecast
-        var forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${userCity}&mode=json&APPID=${apiKey}&units=imperial`;
+
+    // =================== GET 5 DAY FORECAST FROM OPENWEATHER APIs ===================
+
+    var forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${userCity}&mode=json&APPID=${apiKey}&units=imperial`;
 
         $.ajax({
             url: forecastUrl,
@@ -104,19 +100,23 @@ $(document).ready(function () {
                 var iconcode = response.list[i].weather[0].icon;
                 var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
                 $("#icon-" + j).attr("src", iconurl);
-                $("#temp-" + j).text("Temp: " + response.list[i].main.temp);
-                $("#humidity-" + j).text("Humidity: " + response.list[i].main.humidity);
+                $("#temp-" + j).text("Temp: " + response.list[i].main.temp + "°F");
+                $("#humidity-" + j).text("Humidity: " + response.list[i].main.humidity + "%");
                 j++;
             }
+
         });
+
     }
 
     // attach to the document because the list items were created dynamically
     $(document).on("click", ".city-list", function (event) {
         var buttonText = $(this).text();
-        console.log(buttonText);
         getWeather(buttonText);
     });
+
+
+    // =================== CLICK EVENT HANDLER ON SEARCH BUTTON ===================
 
     // click event for search btn
     $("#search-btn").on("click", function (event) {
