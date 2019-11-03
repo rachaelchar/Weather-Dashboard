@@ -17,15 +17,10 @@ var currentCity = $("#city-name");
 var currentDate = moment().format("MM/DD/YYYY");
 console.log(currentDate);
 
-
 currentCity.text(city);
 
 $(document).ready(function () {
     renderSearchHistory();
-
-
-    // function render5DayForecast();
-    // function renderUVIndex();
 
     // function to save user's searches to the page
     function renderSearchHistory() {
@@ -35,7 +30,7 @@ $(document).ready(function () {
 
         searchedCities = JSON.parse(searchedCitiesString);
         // thank you to Brandon for help with the below code! 
-        if (searchedCities === null){
+        if (searchedCities === null) {
             searchedCities = [];
         }
         console.log(searchedCities);
@@ -91,7 +86,7 @@ $(document).ready(function () {
                 $("#city-uv-index").text("UV Index: " + response.value);
             });
 
-            
+
         });
 
         // openweather API info for 5 day forecast
@@ -104,7 +99,7 @@ $(document).ready(function () {
             console.log("forecast info", response);
 
             var j = 1;
-            for (var i = 5; i < response.list.length; i = i+8){
+            for (var i = 5; i < response.list.length; i = i + 8) {
                 $("#day-" + j).text(response.list[i].dt_txt);
                 var iconcode = response.list[i].weather[0].icon;
                 var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
@@ -116,8 +111,8 @@ $(document).ready(function () {
         });
     }
 
-// attach to the document because the list items were created dynamically
-    $(document).on("click", ".city-list", function(event){
+    // attach to the document because the list items were created dynamically
+    $(document).on("click", ".city-list", function (event) {
         var buttonText = $(this).text();
         console.log(buttonText);
         getWeather(buttonText);
@@ -127,20 +122,22 @@ $(document).ready(function () {
     $("#search-btn").on("click", function (event) {
         event.preventDefault();
 
-        // get the value of the user's search
-        city = $("#searched-city").val();
+        if ($("#searched-city").val() != "") {
+            // get the value of the user's search
+            city = $("#searched-city").val();
 
-        // add searched city to searchedCities array
-        searchedCities.push(city);
-        localStorage.setItem("searchedCities", JSON.stringify(searchedCities));
+            // add searched city to searchedCities array
+            searchedCities.push(city);
+            localStorage.setItem("searchedCities", JSON.stringify(searchedCities));
 
-        renderSearchHistory();
+            renderSearchHistory();
 
-        getWeather(city);
-
-        });
+            getWeather(city);
+        }
 
     });
+
+});
 
 
 
