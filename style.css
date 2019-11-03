@@ -19,3 +19,11 @@ body {
 .btn-outline-slate-grey {
     background-color:#878eac;
 }
+
+.card-row {
+    margin-right: 1%;
+}
+
+.btn:hover{
+    background-color: #656b83;
+}
