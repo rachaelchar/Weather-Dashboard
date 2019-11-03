@@ -118,7 +118,6 @@ $(document).ready(function () {
 
 // attach to the document because the list items were created dynamically
     $(document).on("click", ".city-list", function(event){
-        alert("clicked");
         var buttonText = $(this).text();
         console.log(buttonText);
         getWeather(buttonText);
@@ -131,7 +130,6 @@ $(document).ready(function () {
         // get the value of the user's search
         city = $("#searched-city").val();
 
-        alert(city);
         // add searched city to searchedCities array
         searchedCities.push(city);
         localStorage.setItem("searchedCities", JSON.stringify(searchedCities));
