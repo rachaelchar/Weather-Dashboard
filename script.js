@@ -22,20 +22,16 @@ $(document).ready(function () {
         searchedCitiesString = localStorage.getItem("searchedCities");
 
         searchedCities = JSON.parse(searchedCitiesString);
-        // thank you to Brandon for help with the below code to fix a bug upon clearing my local storage 
         if (searchedCities === null) {
             searchedCities = [];
         }
         console.log(searchedCities);
 
-        // use forEach to loop through searchedCities array
         searchedCities.forEach(function (searchedCity) {
-            // create li element and add class
             var liElement = $("<li class=list-group-item>");
             liElement.addClass("city-list");
             liElement.text(searchedCity);
 
-            // !!!!!!!! NEEDS DELETE FUNCTIONALITY & STYLING
             var trashIcon = $("<img src=delete-24px.svg>");
             trashIcon.addClass("delete-icon");
             liElement.append(trashIcon);
@@ -133,6 +129,22 @@ $(document).ready(function () {
     $(document).on("click", ".city-list", function (event) {
         var buttonText = $(this).text();
         getWeather(buttonText);
+    });
+
+    // Delete searched city on trash icon click
+    $(document).on("click", ".delete-icon", function (event) {
+        var deletedCity = $(this).parent().text();
+
+        searchedCitiesString = localStorage.getItem("searchedCities");
+        searchedCities = JSON.parse(searchedCitiesString);
+
+        searchedCities = searchedCities.filter(city => {
+            return city != deletedCity;
+        });
+
+        localStorage.setItem("searchedCities", JSON.stringify(searchedCities));
+
+        renderSearchHistory();
     });
 
 
