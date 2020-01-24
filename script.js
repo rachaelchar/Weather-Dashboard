@@ -34,6 +34,9 @@ $(document).ready(function () {
             var liElement = $("<li class=list-group-item>");
             liElement.addClass("city-list");
             liElement.text(searchedCity);
+            var trashIcon = $("<img src=delete-24px.svg>");
+            trashIcon.addClass("delete-icon");
+            liElement.append(trashIcon);
             $(".list-group").append(liElement);
         });
     };
@@ -51,7 +54,7 @@ $(document).ready(function () {
             url: url,
             method: "GET"
         }).done(function (response) {
-            console.log(response);
+            console.log("current city response", response);
 
             function renderCurrentConditions() {
 
@@ -79,8 +82,20 @@ $(document).ready(function () {
                 method: "GET"
             }).done(function (response) {
                 console.log(response);
+                $("#error").addClass("hide");
                 $("#city-uv-index").text("UV Index: " + response.value);
+                $("#welcome").addClass("hide");
+                $("#weather").removeClass("hide");
+
             });
+        }).fail(function (error){
+            $("#error").removeClass("hide");
+            $("#welcome").addClass("hide");
+            $("#weather").addClass("hide");
+            $("#forecast").addClass("hide");
+            $("#cards").addClass("hide");
+
+            console.log("City does not exist", error);
         });
 
 
@@ -104,6 +119,9 @@ $(document).ready(function () {
                 $("#humidity-" + j).text("Humidity: " + response.list[i].main.humidity + "%");
                 j++;
             }
+            $("#error").addClass("hide");
+            $("#forecast").removeClass("hide");
+            $("#cards").removeClass("hide");
 
         });
 
