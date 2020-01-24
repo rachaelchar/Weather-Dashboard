@@ -8,6 +8,10 @@ body {
     background-color: #878eac;
 }
 
+.text-slate-grey {
+    color: #878eac;
+}
+
 .bg-pink {
     background-color: #f3e3eb;
 }
@@ -28,3 +32,6 @@ body {
     background-color: #656b83;
 }
 
+.hide {
+    display: none;
+}
