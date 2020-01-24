@@ -34,6 +34,8 @@ $(document).ready(function () {
             var liElement = $("<li class=list-group-item>");
             liElement.addClass("city-list");
             liElement.text(searchedCity);
+
+            // !!!!!!!! NEEDS DELETE FUNCTIONALITY & STYLING
             var trashIcon = $("<img src=delete-24px.svg>");
             trashIcon.addClass("delete-icon");
             liElement.append(trashIcon);
