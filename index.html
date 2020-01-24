@@ -30,7 +30,15 @@
 
         <div class="col-md-8 col-s-12 display-flex p-0">
             <div class="jumbotron jumbotron-fluid mr-2 mt-2 rounded bg-pink">
-                <div class="container pr-1">
+                <div id="welcome" class="container pr-1 text-slate-grey text-center">
+                    <h2>Welcome to your Weather Dashboard!</h2>
+                    <h4>Search for a city to get your weather.</h4>  
+                </div>
+                <div id="error" class="container pr-1 text-slate-grey text-center hide">
+                    <h2>Error 404: City Not Found</h2>
+                    <h4>Please try another city.</h4>  
+                </div>
+                <div id="weather"class="container pr-1 hide">
                     <h2 id="city-name"></h2>
                     <p id="city-temp"></p>
                     <p id="city-humidity"></p>
@@ -38,10 +46,10 @@
                     <p id="city-uv-index"></p>
                 </div>
             </div>
-            <div class="row m-2">
+            <div id="forecast" class="row m-2 hide">
                 <h2>5 Day Forecast</h2>
             </div>
-            <div class="row">
+            <div id="cards" class="row hide">
                 <div class="card text-white bg-slate-grey mx-auto" style="min-width: 11rem; max-width: 11rem;">
                     <div id="day-1" class="card-header"></div>
                     <div class="card-body">
