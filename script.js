@@ -128,12 +128,13 @@ $(document).ready(function () {
     // attach to the document because the list items were created dynamically
     $(document).on("click", ".city-list", function (event) {
         var buttonText = $(this).text();
-        var deleteIcon = $(".delete-icon");
+        getWeather(buttonText);
 
-        if ($(this) != deleteIcon){
-          getWeather(buttonText);
-        };
-
+        // if ($(this).hasClass("delete-icon")) {
+        //     buttonText = ""
+        // } else {
+        //     getWeather(buttonText);
+        // }
     });
 
     // Delete searched city on trash icon click
