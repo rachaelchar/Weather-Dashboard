@@ -15,8 +15,10 @@
     <nav class="navbar navbar-dark bg-slate-grey text-pink h1">Weather Dashboard
     </nav>
 
+    <div class="container">
+
     <div class="row">
-        <div class="col-md-4 col-xs-12">
+        <div class="col-md-4 col-s-12">
             <form class="form-inline pt-4 my-2 p-3 my-lg-0">
                 <input id="searched-city" class="form-control mr-sm-2 ml-3 " type="search" placeholder="Search"
                     aria-label="Search">
@@ -38,7 +40,7 @@
                     <h2>Error 404: City Not Found</h2>
                     <h4>Please try another city.</h4>  
                 </div>
-                <div id="weather"class="container pr-1 hide">
+                <div id="weather"class="col-md-4 col-s-12container pr-1 hide">
                     <h2 id="city-name"></h2>
                     <p id="city-temp"></p>
                     <p id="city-humidity"></p>
@@ -46,6 +48,7 @@
                     <p id="city-uv-index"></p>
                 </div>
             </div>
+
             <div id="forecast" class="row m-2 hide">
                 <h2>5 Day Forecast</h2>
             </div>
@@ -93,6 +96,7 @@
 
             </div>
         </div>
+    </div>
 
         <!-- jquery -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
