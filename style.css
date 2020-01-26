@@ -35,3 +35,8 @@ body {
 .hide {
     display: none;
 }
+
+.delete-icon {
+    float: right;
+    cursor: pointer;
+}
