@@ -128,7 +128,12 @@ $(document).ready(function () {
     // attach to the document because the list items were created dynamically
     $(document).on("click", ".city-list", function (event) {
         var buttonText = $(this).text();
-        getWeather(buttonText);
+        var deleteIcon = $(".delete-icon");
+
+        if ($(this) != deleteIcon){
+          getWeather(buttonText);
+        };
+
     });
 
     // Delete searched city on trash icon click
@@ -145,6 +150,7 @@ $(document).ready(function () {
         localStorage.setItem("searchedCities", JSON.stringify(searchedCities));
 
         renderSearchHistory();
+
     });
 
 
@@ -166,6 +172,8 @@ $(document).ready(function () {
 
             getWeather(city);
         }
+
+        $("#searched-city").val("");
 
     });
 
