@@ -40,3 +40,7 @@ body {
     float: right;
     cursor: pointer;
 }
+
+.list-group-item {
+    cursor: default;
+}
