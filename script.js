@@ -152,6 +152,7 @@ $(document).ready(function () {
 
         renderSearchHistory();
 
+        location.reload();
     });
 
 
